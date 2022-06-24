@@ -1,6 +1,9 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <windows.h>
+
+using namespace std;
 
 struct Cars
 {
@@ -28,3 +31,25 @@ struct Issued_cars
 	char* date_of_isuue;
 	char* return_date;
 };
+
+void Autoristion()
+{
+	fstream file;
+
+}
+
+int main()
+{
+	setlocale(LC_ALL, "rus");
+	Cars cars;
+	Customers customers;
+	Issued_cars issued_cars;
+	int menu_choose = 10;
+
+
+
+	while (menu_choose != 0)
+	{
+		cout << " ";
+	}
+}
