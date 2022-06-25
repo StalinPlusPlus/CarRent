@@ -35,6 +35,61 @@ struct Issued_cars
 void Autoristion()
 {
 	fstream file;
+	string login, password, buf, file_name;
+
+	cout << "Введите логин: ";
+	cin >> login;
+	cout << endl << "Введите пароль: ";
+	cin >> password;
+	cout << endl;
+
+	if (login == "admin")
+	{
+		file.open("admin.txt", fstream::out | fstream::in | fstream::app);
+
+		if (file.is_open())
+		{
+			getline(file, buf);
+			getline(file, buf);
+
+			if (buf == password)
+			{
+				cout << "Авторизация успешна!";
+			}
+		}
+		else
+		{
+			cout << "Ошибка открытия файла!";
+			break;
+		}
+	}
+	else
+	{
+		file.open(file_name, fstrea::out | fstream::in | fstream::app);
+
+		if (!file.is_open())
+		{
+			cout << "Ошибка открытия файла!";
+		}
+		else
+		{
+			getline(file, buf);
+			getline(file, buf);
+
+			if (buf == password)
+			{
+				cout << "Авторизация прошла успешно!";
+			}
+			else
+			{
+				cout << "Ошибка авторизации! Неверный пароль!";
+			}
+		}
+	}
+}
+
+void Menu()
+{
 
 }
 
@@ -47,9 +102,4 @@ int main()
 	int menu_choose = 10;
 
 
-
-	while (menu_choose != 0)
-	{
-		cout << " ";
-	}
 }
