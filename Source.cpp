@@ -43,13 +43,14 @@ void Autoristion()
 	cin >> password;
 	cout << endl;
 
+	file_name = login + ".txt";
+
 	if (login == "admin")
 	{
 		file.open("admin.txt", fstream::out | fstream::in | fstream::app);
 
 		if (file.is_open())
 		{
-			getline(file, buf);
 			getline(file, buf);
 
 			if (buf == password)
@@ -60,12 +61,11 @@ void Autoristion()
 		else
 		{
 			cout << "Ошибка открытия файла!";
-			break;
 		}
 	}
 	else
 	{
-		file.open(file_name, fstrea::out | fstream::in | fstream::app);
+		file.open(file_name, fstream::out | fstream::in | fstream::app);
 
 		if (!file.is_open())
 		{
@@ -73,7 +73,6 @@ void Autoristion()
 		}
 		else
 		{
-			getline(file, buf);
 			getline(file, buf);
 
 			if (buf == password)
@@ -88,6 +87,14 @@ void Autoristion()
 	}
 }
 
+void Registration()
+{
+	fstream file;
+	string login, password;
+
+
+}
+
 void Menu()
 {
 
@@ -100,6 +107,6 @@ int main()
 	Customers customers;
 	Issued_cars issued_cars;
 	int menu_choose = 10;
-
-
+	cin >> menu_choose;
+	Autoristion();
 }
