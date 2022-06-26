@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS 1
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -36,55 +37,81 @@ void Autoristion()
 {
 	fstream file;
 	string login, password, buf, file_name;
+	char file_nameChar[100];
+	bool exit = true;
 
-	cout << "Введите логин: ";
-	cin >> login;
-	cout << endl << "Введите пароль: ";
-	cin >> password;
-	cout << endl;
-
-	file_name = login + ".txt";
-
-	if (login == "admin")
+	do
 	{
-		file.open("admin.txt", fstream::out | fstream::in | fstream::app);
+		cout << "Введите логин: ";
+		cin >> login;
+		cout << endl << "Введите пароль: ";
+		cin >> password;
+		cout << endl;
 
-		if (file.is_open())
+		file_name = login + ".txt";
+
+		if (login == "admin")
 		{
-			getline(file, buf);
+			file.open("admin.txt", fstream::out | fstream::in | fstream::app);
 
-			if (buf == password)
+			if (file.is_open())
 			{
-				cout << "Авторизация успешна!";
-			}
-		}
-		else
-		{
-			cout << "Ошибка открытия файла!";
-		}
-	}
-	else
-	{
-		file.open(file_name, fstream::out | fstream::in | fstream::app);
+				getline(file, buf);
+				file.close();
 
-		if (!file.is_open())
-		{
-			cout << "Ошибка открытия файла!";
-		}
-		else
-		{
-			getline(file, buf);
-
-			if (buf == password)
-			{
-				cout << "Авторизация прошла успешно!";
+				if (buf == password)
+				{
+					cout << "Авторизация успешна!" << endl;
+					exit = false;
+					break;
+				}
 			}
 			else
 			{
-				cout << "Ошибка авторизации! Неверный пароль!";
+				cout << "Ошибка открытия файла!" << endl;
+				exit = false;
+				break;
 			}
 		}
-	}
+		else
+		{
+			file.open(file_name, fstream::out | fstream::in | fstream::app);
+
+			if (!file.is_open())
+			{
+				cout << "Ошибка открытия файла!" << endl;
+				exit = false;
+				break;
+			}
+			else
+			{
+				strcpy(file_nameChar, file_name.c_str());
+				if (fopen(file_nameChar, "r") == NULL)
+				{
+					cout << "Пользователь с таким логином не зарегестрирован!" << endl;
+					exit = false;
+					break;
+				}
+				cin.get();
+
+				getline(file, buf);
+				file.close();
+
+				if (buf == password)
+				{
+					cout << "Авторизация прошла успешно!" << endl;
+					exit = false;
+					break;
+				}
+				else
+				{
+					cout << "Ошибка авторизации! Неверный пароль!" << endl;
+					exit = false;
+					break;
+				}
+			}
+		}
+	} while (exit);
 }
 
 void Registration()
