@@ -117,9 +117,46 @@ void Autoristion()
 void Registration()
 {
 	fstream file;
-	string login, password;
+	string login, password, file_name;
+	char file_nameChar[100];
+	bool exit = true;
 
+	cout << "Введите логин: ";
+	cin >> login;
+	cout << endl << "Введите пароль: ";
+	cin >> password;
+	cout << endl;
 
+	do
+	{
+		file_name = login + ".txt";
+		strcpy(file_nameChar, file_name.c_str());
+		cin.get();
+
+		if (login == "admin" || fopen(file_nameChar, "r"))
+		{
+			cout << "Пользователь с таким логином уже существует!" << endl;
+			exit = false;
+			break;
+		}
+
+		file.open(file_name, fstream::out);
+
+		if (!file.is_open())
+		{
+			cout << "Ошибка создания файла!";
+			exit = false;
+			break;
+		}
+		else
+		{
+			file << password << "\n";
+			cout << "Регистрация прошла успешно!";
+			exit = false;
+			break;
+		}
+		file.close();
+	} while (exit);
 }
 
 void Menu()
@@ -134,6 +171,5 @@ int main()
 	Customers customers;
 	Issued_cars issued_cars;
 	int menu_choose = 10;
-	cin >> menu_choose;
 	Autoristion();
 }
